@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: var(--gradient-primary) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        /* Profile Container */
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .profile-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .profile-body {
+            padding: 30px;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .profile-info i {
+            color: var(--primary-color);
+            margin-right: 15px;
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .profile-info-content {
+            flex-grow: 1;
+        }
+
+        .profile-info-content h5 {
+            margin-bottom: 5px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .profile-info-content p {
+            margin-bottom: 0;
+            color: #6c757d;
+        }
+
+        /* Action Buttons */
+        .profile-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-custom {
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom i {
+            margin-right: 8px;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        /* Footer Styling */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .profile-container {
+                padding: 10px;
+            }
+            
+            .profile-actions {
+                flex-direction: column;
+            }
+            
+            .profile-actions .btn {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-building mr-2"></i>Hostel Dashboard
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:Hostel_home' %}">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:register_hostel_profile' %}">
+                        <i class="fas fa-plus-circle"></i> Register Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:add_room' %}">
+                        <i class="fas fa-door-open"></i> Add Room
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:view_bookings_for_hostel' %}">
+                        <i class="fas fa-book"></i> View Bookings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <h2 class="mb-0">
+                    <i class="fas fa-hotel mr-2"></i>
+                    {{ hostel.name }} Hostel Profile
+                </h2>
+            </div>
+            <div class="profile-body">
+                <div class="profile-info">
+                    <i class="fas fa-map-marker-alt"></i> <div class="profile-info-content">
+                        <h5>Location</h5>
+                        <p>{{ hostel.district.District_name }}, {{ hostel.place.Place_name }}</p>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <i class="fas fa-address-card"></i>
+                    <div class="profile-info-content">
+                        <h5>Address</h5>
+                        <p>{{ hostel.address }}</p>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <i class="fas fa-phone"></i>
+                    <div class="profile-info-content">
+                        <h5>Phone Number</h5>
+                        <p>{{ hostel.phone_number }}</p>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <i class="fas fa-envelope"></i>
+                    <div class="profile-info-content">
+                        <h5>Email</h5>
+                        <p>{{ hostel.email }}</p>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <i class="fas fa-globe"></i>
+                    <div class="profile-info-content">
+                        <h5>Website</h5>
+                        <p><a href="{{ hostel.website }}" target="_blank">{{ hostel.website }}</a></p>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <i class="fas fa-map"></i>
+                    <div class="profile-info-content">
+                        <h5>Location Link</h5>
+                        <p><a href="{{ hostel.loc }}" target="_blank">View Location</a></p>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <a href="{% url 'User:view_bookings_for_hostel' %}" class="btn btn-primary btn-custom">
+                        <i class="fas fa-book"></i> View Bookings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 StudSeek. All Rights Reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

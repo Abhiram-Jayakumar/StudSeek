@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register Hostel</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: var(--gradient-primary) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        /* Registration Container */
+        .registration-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        /* Registration Card */
+        .registration-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .registration-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .page-header h2 {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-header i {
+            margin-right: 15px;
+        }
+
+        /* Form Styling */
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            border-radius: 25px;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        /* Select Styling */
+        .custom-select {
+            border-radius: 25px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right .75rem center;
+            background-size: 8px 10px;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn-submit i {
+            margin-right: 8px;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .registration-container {
+                padding: 15px;
+            }
+        }
+    </style>
+<body>
+     <!-- Navigation Bar -->
+     <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-building mr-2"></i>Hostel Dashboard
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:Hostel_home' %}">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:register_hostel_profile' %}">
+                        <i class="fas fa-plus-circle"></i> Register Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:add_room' %}">
+                        <i class="fas fa-door-open"></i> Add Room
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:view_bookings_for_hostel' %}">
+                        <i class="fas fa-book"></i> View Bookings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="registration-container">
+        <div class="page-header">
+            <h2><i class="fas fa-building"></i> Register Hostel</h2>
+        </div>
+
+        <div class="registration-card">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-home mr-2"></i>Hostel Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="district"><i class="fas fa-map-marker-alt mr-2"></i>District</label>
+                    <select class="custom-select" id="district" name="district" required>
+                        <option value="">--Select District--</option>
+                        {% for district in districts %}
+                        <option value="{{ district.id }}">{{ district.District_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="place"><i class="fas fa-map-pin mr-2"></i>Place</label>
+                    <select class="custom-select" id="place" name="place" required>
+                        <option value="">--Select Place--</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="address"><i class="fas fa-address-card mr-2"></i>Address</label>
+                    <textarea class="form-control" id="address" name="address"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope mr-2"></i>Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone_number"><i class="fas fa-phone mr-2"></i>Phone Number</label>
+                    <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="website"><i class="fas fa-globe mr-2"></i>Website</label>
+                    <input type="url" class="form-control" id="website" name="website">
+                </div>
+
+                <div class="form-group">
+                    <label for="loc"><i class="fas fa-link mr-2"></i>Location URL</label>
+                    <input type="url" class="form-control" id="loc" name="loc">
+                </div>
+
+                <input type="hidden" id="registered_by" name="registered_by" value="{{ registered_by_id }}">
+
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-check"></i> Register
+                </button>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#district').change(function () {
+                var districtId = $(this).val();
+                $('#place').empty();
+                $('#place').append('<option value="">--Select Place--</option>');
+                if (districtId) {
+                    $.ajax({
+                        url: '/User/get-places/' + districtId + '/',
+                        method: 'GET',
+                        success: function (data) {
+                            console.log("Places fetched: ", data);
+                            if (data.length > 0) {
+                                $.each(data, function (index, place) {
+                                    $('#place').append('<option value="' + place.id + '">' + place.Place_name + '</option>');
+                                });
+                            } else {
+                                $('#place').append('<option value="">No places available</option>');
+                            }
+                        },
+                        error: function () {
+                            console.error("Failed to fetch places.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 StudSeek. All Rights Reserved.</p>
+    </div>
+</body>
+</html>

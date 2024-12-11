@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC College - Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #007bff !important;
+        }
+        .hero {
+            background-image: url('https://i.postimg.cc/bNB4RbsV/photo-1523050854058-8df90110c9f1.avif');
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 48px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        footer {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'User:College_home' %}">College</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:view_college_profile'%}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:reg_college_profile'%}">Add - Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index'%}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div>
+            <h1>Welcome to ABC College</h1>
+            <p>Your future starts here. Explore our programs and join our community!</p>
+            <a href="#programs" class="btn btn-light btn-lg">Explore Programs</a>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="container mt-5" id="about">
+        <h2 class="text-center mb-4">About Us</h2>
+        <p class="text-center">ABC College is committed to providing quality education and fostering a supportive learning environment. Our mission is to empower students to achieve their academic and career goals.</p>
+    </div>
+
+    <!-- Programs Section -->
+    <div class="container mt-5" id="programs">
+        <h2 class="text-center mb-4">Our Programs</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="https://i.postimg.cc/wBhPHGFn/photo-1609345635784-fd4a890e2326.avif" class="card-img-top" alt="Program 1" style="height: 240px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Computer Science</h5>
+                        <p class="card-text">Learn the fundamentals of programming, software development, and data science.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="https://i.postimg.cc/T1PHVYGX/photo-1541339907198-e08756dedf3f.avif" class="card-img-top" alt="Program 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Business Administration</h5>
+                        <p class="card-text ">Gain insights into management, marketing, and entrepreneurship to excel in the business world.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="https://i.postimg.cc/sDvN1XwY/photo-1590012314607-cda9d9b699ae.avif" class="card-img-top" alt="Program 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Psychology</h5>
+                        <p class="card-text">Explore human behavior and mental processes to understand and help others.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admissions Section -->
+    <div class="container mt-5" id="admissions">
+        <h2 class="text-center mb-4">Admissions</h2>
+        <p class="text-center">We welcome students from all backgrounds. Our admissions process is straightforward and designed to help you succeed. Visit our admissions page for more details.</p>
+    </div>
+
+    <!-- Events Section -->
+    <div class="container mt-5" id="events">
+        <h2 class="text-center mb-4">Upcoming Events</h2>
+        <ul class="list-group">
+            <li class="list-group-item">Open House - March 15, 2024</li>
+            <li class="list-group-item">Career Fair - April 10, 2024</li>
+            <li class="list-group-item">Graduation Ceremony - May 25, 2024</li>
+        </ul>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="container mt-5" id="contact">
+        <h2 class="text-center mb-4">Contact Us</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea class="form-control" id="message" rows="3" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+<br><br><br><br>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 ABC College. All rights reserved.</p>
+        <p>Follow us on social media: 
+            <a href="#" class="text-white">Facebook</a> | 
+            <a href="#" class="text-white">Instagram</a> | 
+            <a href="#" class="text-white">Twitter</a>
+        </p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ hostel.name }} - Booking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: var(--gradient-primary) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Heading Styling */
+        h4 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border-radius: 25px;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(52,144,219,0.25);
+            border-color: var(--primary-color);
+        }
+
+        label {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        /* Button Styling */
+        .btn-primary {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        /* Select Styling */
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right .75rem center;
+            background-size: 8px 10px;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+        }
+
+        /* Additional Decorative Elements */
+        .form-group::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+        }
+    </style>
+    </head>
+<body>
+     <!-- Navigation Bar -->
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">StudSeek</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:User_home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:user_booking_records' %}">My Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h4>
+            <i class="fas fa-bed mr-2"></i>
+            Book a Room at {{ hostel.name }}
+        </h4>
+
+        <form method="POST" action="{% url 'User:hostel_details' hostel.id %}">
+            {% csrf_token %}
+            <div class="form-group position-relative">
+                <label for="room">
+                    <i class="fas fa-door-open mr-2"></i>Select a Room
+                </label>
+                <select name="room_id" class="form-control" required style="height:50px;">
+                     {% for room in rooms %}
+                    <option value="{{ room.id }}">Room {{ room.room_number }} - Capacity: {{ room.capacity }} - Rental amount: {{ room.Rent_amount }} </option>
+                {% endfor %}
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="capacity">
+                    <i class="fas fa-users mr-2"></i>Choose Your Capacity
+                </label>
+                <input type="number" class="form-control" name="capacity" min="1" max="10" required style="height:50px;">
+            </div>
+            
+            <div class="form-group">
+                <label for="check_in_date">
+                    <i class="fas fa-calendar-alt mr-2"></i>Check-in Date
+                </label>
+                <input type="datetime-local" class="form-control" name="check_in_date" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="special_requests">
+                    <i class="fas fa-comment-dots mr-2"></i>Special Requests
+                </label>
+                <textarea class="form-control" name="special_requests" rows="3"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check-circle mr-2"></i>Book Room
+            </button>
+        </form>
+    </div>
+
+     <!-- Footer -->
+     <div class="footer">
+        <p>&copy; 2024 StudSeek. All Rights Reserved.</p>
+    </div>
+</body>
+</html>

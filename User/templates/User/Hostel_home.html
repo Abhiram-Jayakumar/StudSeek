@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: var(--gradient-primary) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Card Styling */
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .dashboard-card-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dashboard-card-body {
+            padding: 20px;
+        }
+
+        .dashboard-card-body .btn {
+            margin-top: 15px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Heading Styles */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+
+        /* Footer Styling */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-building mr-2"></i>Hostel HOME PAGE
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:Hostel_home' %}">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <h1 class="page-header">
+            <i class="fas fa-hotel mr-3"></i>Hostel Management
+        </h1>
+
+        <div class="dashboard-grid">
+            <!-- Hostel Profile Card -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-id-card mr-2"></i>Hostel Profile
+                    </h5>
+                </div>
+                <div class="dashboard-card-body">
+                    <p>Manage and update your hostel profile information.</p>
+                    <a href="{% url 'User:register_hostel_profile' %}" class="btn btn-primary">
+                        <i class="fas fa-plus-circle mr-2"></i>Register Profile
+                    </a>
+                    <a href="{% url 'User:view_hostel_profile' %}" class="btn btn-secondary">
+                        <i class="fas fa-eye mr-2"></i>View Profile
+                    </a>
+                </div>
+            </div>
+
+            <!-- Room Management Card -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-door-open mr-2"></i>Room Management
+                    </h5>
+                </div>
+                <div class="dashboard-card-body">
+                    <p>Add and manage rooms in your hostel.</p>
+                    <a href="{% url 'User:add_room' %}" class="btn btn-primary">
+                        <i class="fas fa-plus-circle mr-2"></i>Add Room
+                    </a>
+                </div> 
+            </div>
+
+            <!-- Booking Management Card -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-book mr-2"></i>Booking Management
+                    </h5>
+                </div>
+                <div class="dashboard-card-body">
+                    <p>View and manage bookings for your hostel.</p>
+                    <a href="{% url 'User:view_bookings_for_hostel' %}" class="btn btn-primary">
+                        <i class="fas fa-eye mr-2"></i>View Bookings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 StudSeek. All Rights Reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

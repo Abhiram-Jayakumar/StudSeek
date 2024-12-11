@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Provider Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .navbar-brand i {
+            margin-right: 10px;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-menu a i {
+            margin-right: 8px;
+        }
+
+        .navbar-menu a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+
+        .logout-btn {
+            background: rgba(255,69,0,0.7);
+        }
+
+        .footer {
+            background: var(--gradient-secondary);
+            color: rgb(8, 8, 8);
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 0 0 15px 15px;
+        }
+        /* Profile Container */
+        .profile-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+        }
+
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .profile-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-item i {
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .profile-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .profile-item a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar-menu {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            .profile-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="{% url 'User:Bus_home' %}" class="navbar-brand">
+            <i class="fas fa-bus"></i> Bus Provider Portal
+        </a>
+        <div class="navbar-menu">
+            <a href="{% url 'User:register_bus_provider' %}">
+                <i class="fas fa-plus-circle"></i> Register Provider
+            </a>
+            <a href="{% url 'User:view_bus_provider_profile' %}">
+                <i class="fas fa-eye"></i> View Profile
+            </a>
+            <a href="{% url 'User:index' %}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </nav>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <div class="profile-header">
+            <h2>Bus Provider Profile</h2>
+        </div>
+        
+        <div class="profile-details">
+            <div class="profile-item">
+                <i class="fas fa-user"></i>
+                <div>
+                    <strong>Name:</strong> {{ bus_provider.name }}
+                </div>
+            </div>
+
+            <div class="profile-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <strong>District:</strong> {{ bus_provider.district.District_name }}
+                </div>
+            </div>
+
+            <div class="profile-item">
+                <i class="fas fa-map-pin"></i>
+                <div>
+                    <strong>Place:</strong> {{ bus_provider.place.Place_name }}
+                </div>
+            </div>
+
+            <div class="profile-item">
+                <i class="fas fa-address-card"></i>
+                <div>
+                    <strong>Address:</strong> {{ bus_provider.address }}
+                </div>
+            </div>
+
+            <div class="profile-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <strong>Phone Number:</strong> {{ bus_provider.phone_number }}
+                </div>
+            </div>
+
+            <div class="profile-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <strong>Email:</strong> {{ bus_provider.email }}
+                </div>
+            </div>
+
+            <div class="profile-item">
+                <i class="fas fa-globe"></i>
+                <div>
+                    <strong>Website:</strong> 
+                    <a href="{{ bus_provider.website }}">{{ bus_provider.website }}</a>
+                </div>
+            </div>
+
+            <div class="profile-item">
+                <i class="fas fa-route"></i>
+                <div>
+                    <strong>Route Details:</strong> {{ bus_provider.route_details }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Bus-Home. All Rights Reserved.</p>
+    </div>
+</body>
+</html>

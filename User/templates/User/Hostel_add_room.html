@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Room</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: var(--gradient-primary) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        /* Add Room Container */
+        .add-room-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        /* Add Room Card */
+        .add-room-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .add-room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .page-header h2 {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-header i {
+            margin-right: 15px;
+        }
+
+        /* Form Styling */
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group label i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .form-control {
+            border-radius: 25px;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        /* Custom Select Styling */
+        .custom-select {
+            border-radius: 25px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right .75rem center;
+            background-size: 8px 10px;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn-submit i {
+            margin-right: 8px;
+        }
+
+        /* Textarea Styling */
+        textarea.form-control {
+            border-radius: 15px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .add-room-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Navigation Bar -->
+     <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-building mr-2"></i>Hostel Dashboard
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:Hostel_home' %}">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:register_hostel_profile' %}">
+                        <i class="fas fa-plus-circle"></i> Register Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:add_room' %}">
+                        <i class="fas fa-door-open"></i> Add Room
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:view_bookings_for_hostel' %}">
+                        <i class="fas fa-book"></i> View Bookings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="add-room-container">
+        <div class="page-header">
+            <h2><i class="fas fa-door-open"></i> Add New Room</h2>
+        </div>
+    
+        <div class="add-room-card">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="hostel" name="hostel" value="{{ hostel }}">
+    
+                <div class="form-group">
+                    <label for="room_number">
+                        <i class="fas fa-door-closed"></i>Room Number
+                    </label>
+                    <input type="text" name="room_number" class="form-control" required 
+                           placeholder="Enter room number">
+                </div>
+    
+                <div class="form-group">
+                    <label for="capacity">
+                        <i class="fas fa-users"></i>Capacity
+                    </label>
+                    <input type="number" name="capacity" class="form-control" required 
+                           placeholder="Maximum number of occupants" min="1">
+                </div>
+    
+                <div class="form-group">
+                    <label for="Rent_amount">
+                        <i class="fas fa-dollar-sign"></i>Rent Amount
+                    </label>
+                    <input type="number" name="Rent_amount" class="form-control" step="0.01" required 
+                           placeholder="Enter rent amount">
+                </div>
+    
+                <div class="form-group">
+                    <label for="is_available">
+                        <i class="fas fa-check-circle"></i>Is Available
+                    </label>
+                    <select name="is_available" class="custom-select" required>
+                        <option value="True">Yes</option>
+                        <option value="False">No</option>
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <label for="description">
+                        <i class="fas fa-info-circle"></i>Description
+                    </label>
+                    <textarea name="description" class="form-control" rows="3" 
+                              placeholder="Enter room description"></textarea>
+                </div>
+    
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-plus"></i> Add Room
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 StudSeek. All Rights Reserved.</p>
+    </div>
+</body>
+</html>

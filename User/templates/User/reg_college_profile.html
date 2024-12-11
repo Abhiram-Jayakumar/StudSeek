@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register College</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #007bff !important;
+        }
+
+        .container {
+            margin-top: 20px;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 15px;
+        }
+
+        footer {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">College Registration</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:view_college_profile' %}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:reg_college_profile' %}">Add - Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Registration Form -->
+    <div class="container">
+        <h2>Register College</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="name">College Name:</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="district">District:</label>
+                <select id="district" name="district" class="form-control" required>
+                    <option value="">--Select District--</option>
+                    {% for district in districts %}
+                    <option value="{{ district.id }}">{{ district.District_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="place">Place:</label>
+                <select id="place" name="place" class="form-control" required>
+                    <option value="">--Select Place--</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" class="form-control" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone_number">Phone Number:</label>
+                <input type="text" id="phone_number" name="phone_number" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="website">Website:</label>
+                <input type="url" id="website" name="website" class="form-control">
+            </div>
+
+            <div class="form -group">
+                <label for="loc">Googlemap (loc):</label>
+                <input type="url" id="loc" name="loc" class="form-control">
+            </div>
+
+            <input type="hidden" id="registered_by" name="registered_by" value="{{ registered_by_id }}">
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+<br><br><br><br>
+    <footer>
+        <p>&copy; 2024 College Registration. All rights reserved.</p>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            $('#district').change(function () {
+                var districtId = $(this).val();
+                $('#place').empty();
+                $('#place').append('<option value="">--Select Place--</option>');
+                if (districtId) {
+                    $.ajax({
+                        url: '/User /get-places/' + districtId + '/',
+                        method: 'GET',
+                        success: function (data) {
+                            console.log("Places fetched: ", data);
+                            if (data.length > 0) {
+                                $.each(data, function (index, place) {
+                                    $('#place').append('<option value="' + place.id + '">' + place.Place_name + '</option>');
+                                });
+                            } else {
+                                $('#place').append('<option value="">No places available</option>');
+                            }
+                        },
+                        error: function () {
+                            console.error("Failed to fetch places.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

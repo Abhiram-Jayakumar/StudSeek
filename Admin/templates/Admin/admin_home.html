@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card-title {
+            color: #007bff;
+        }
+
+        footer {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .stat-card {
+            background-color: #e9ecef;
+        }
+
+        .stat-card .card-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            color: #007bff;
+        }
+
+        .recent-activity {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><b>Admin Dashboard</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}"><b>Logout</b></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center mb-4">Admin Home</h1>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card stat-card">
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title">Total Districts</h5>
+                            <h2>15</h2>
+                        </div>
+                        <i class="fas fa-map-marker-alt stat-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stat-card">
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title">Total Places</h5>
+                            <h2>30</h2>
+                        </div>
+                        <i class="fas fa-map stat-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stat-card">
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title">Total Users</h5>
+                            <h2>120</h2>
+                        </div>
+                        <i class="fas fa-users stat-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Manage Districts</h5>
+                        <p class="card-text">Add or manage districts in the system.</p>
+                        <a href="{% url 'Admin:add_district' %}" class="btn btn-primary">Add District</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Manage Places</h5>
+                        <p class="card-text">Add or manage places in the system.</p>
+                        <a href="{% url 'Admin:add_place' %}" class="btn btn-primary">Add Place</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">List Locations</h5>
+                        <p class="card-text">View and manage all locations in the system.</p>
+                        <a href="{% url 'Admin:List_loc' %}" class="btn btn-primary">List Locations</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Activities</h5>
+                        <div class="recent-activity">
+                            <ul class="list-group">
+                                <li class="list-group-item">Added new district: Downtown</li>
+                                <li class="list-group-item">Updated place: Central Park</li>
+                                <li class="list-group-item">Deleted place: Old Town</li>
+                                <li class="list-group-item">Registered new user: John Doe</li>
+                                <li class="list-group-item">Updated user profile: Jane Smith</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="map-container">
+            <h2 class="card-title" align="center">Static Map</h2>
+        </div>
+        <img src="https://i.postimg.cc/DfPKT8mB/HILmr.png" alt="" srcset=""  style="width: 50%; margin-left: 450px;">
+    </div>
+<br><br>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Admin Dashboard. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

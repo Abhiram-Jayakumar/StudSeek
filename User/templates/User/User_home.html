@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: var(--gradient-primary) !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        /* Container Styling */
+        .container {
+            padding: 20px;
+        }
+
+        /* Search Form Styling */
+        .search-form {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary {
+            border-radius: 20px;
+            background: var(--gradient-primary);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Card Styling */
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            margin-bottom: 20px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-body strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .card-body span {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .card-body a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .card-body a:hover {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Section Headings */
+        h2,
+        h3,
+        h4 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        h2::after,
+        h3::after,
+        h4::after {
+            content: '';
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+
+        /* Footer Styling */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">StudSeek</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:user_booking_records' %}">My Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center" style="color:black;"><b><i>SEEK .. what you are looking for..!</i></b></h1>
+        <br>
+        <form method="post" class="mb-4">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="district">District:</label>
+                    <select id="district" name="district" class="form-control" required>
+                        <option value="">--Select District--</option>
+                        {% for district in districts %}
+                        <option value="{{ district.id }}">{{ district.District_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="place">Place:</label>
+                    <select id="place" name="place" class="form-control">
+                        <option value="">--Select Place--</option>
+                        {% for place in places %}
+                        <option value="{{ place.id }}">{{ place.Place_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <h3>Results:</h3>
+
+        <!-- Colleges Section -->
+        <h4>Colleges:</h4>
+        <div class="row">
+            {% for college in results.colleges %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <strong>{{ college.name }}</strong>
+                        <span>Place: {{ college.place.Place_name }}</span>
+                        <br>
+                        <span>Address: {{ college.address }}</span>
+                        <br>
+                        <span>Phone: {{ college.phone_number }}</span>
+                        <br>
+                        <span>Website: <a href="{{ college.website }}" target="_blank">website</a></span>
+                        <br>
+                        <span>Location: <a href="{{ college.loc }}" target="_blank">View Location</a></span>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-md-12">
+                <div class="alert alert-warning">No colleges found.</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Food Vendors Section -->
+        <h4>Food Vendors:</h4>
+        <div class="row">
+            {% for vendor in results.food_vendors %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <strong>{{ vendor.name }}</strong>
+                        <span>Place: {{ vendor.place.Place_name }}</span>
+                        <br>
+                        <span>Address: {{ vendor.address }}</span>
+                        <br>
+                        <span>Phone: {{ vendor.phone_number }}</span>
+                        <br>
+                        <span>Website: <a href="{{ vendor.website }}" target="_blank">website</a></span>
+                        <br>
+                        <span>Location: <a href="{{ vendor.loc }}" target="_blank">View Location</a></span>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-md-12">
+                <div class="alert alert-warning">No food vendors found.</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Hostels Section -->
+        <h4>Hostels:</h4>
+        <div class="row">
+            {% for hostel in results.hostels %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <strong>{{ hostel.name }}</strong><br>
+                        <span>Address: {{ hostel.address }}</span>
+                        <br>
+                        <span>Phone: {{ hostel.phone_number }}</span>
+                        <br>
+                        <span>Website: <a href="{{ hostel.website }}" target="_blank">website</a></span>
+                        <br>
+                        <span>Location: <a href="{{ hostel.loc }}" target="_blank">View Location</a></span>
+                        <br>
+                        {% for room in hostel.rooms.all %}
+                        <span>Rent Amount (Room {{ room.room_number }}): {{ room.Rent_amount }}</span>
+                        <span>
+                            {% if room.is_available %}
+                            Available: Yes
+                            {% else %}
+                            Available: No
+                            {% endif %}
+                            |  Capacity: {{ room.capacity }}
+
+                        </span>
+                        <br>
+                        {% endfor %}
+
+                        <a href="{% url 'User:hostel_details' hostel.id %}" class="btn btn-primary"
+                            style="color: #f4f6f7;">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-md-12">
+                <div class="alert alert-warning">No hostels found.</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Bus Providers Section -->
+        <h4>Bus Providers:</h4>
+        <div class="row">
+            {% for bus_provider in results.bus_providers %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <strong>{{ bus_provider.name }}</strong>
+                        <span>Place: {{ bus_provider.place.Place_name }}</span>
+                        <br>
+                        <span>Address: {{ bus_provider.address }}</span>
+                        <br>
+                        <span>Phone: {{ bus_provider.phone_number }}</span>
+                        <br>
+                        <span>Website: <a href="{{ bus_provider.website }}" target="_blank">website</a></span>
+                        <br>
+                        <span>Route Details: {{ bus_provider.route_details }}</span>
+                        <br>
+                        <span>Location: <a href="{{ bus_provider.loc }}" target="_blank">View Location</a></span>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-md-12">
+                <div class="alert alert-warning">No bus providers found.</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 StudSeek. All Rights Reserved.</p>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#district').change(function () {
+                var districtId = $(this).val();
+                $('#place').empty();
+                $('#place').append('<option value="">--Select Place--</option>');
+                if (districtId) {
+                    $.ajax({
+                        url: '/User/get-places/' + districtId + '/',
+                        method: 'GET',
+                        success: function (data) {
+                            if (data.length > 0) {
+                                $.each(data, function (index, place) {
+                                    $('#place').append('<option value="' + place.id + '">' + place.Place_name + '</option>');
+                                });
+                            } else {
+                                $('#place').append('<option value="">No places available</option>');
+                            }
+                        },
+                        error: function () {
+                            console.error("Failed to fetch places.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Booking Records</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: var(--gradient-primary) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        /* Container Styling */
+        .container {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Table Styling */
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .table thead {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .table th {
+            vertical-align: middle !important;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .table td {
+            vertical-align: middle !important;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Status Badges */
+        .badge {
+            padding: 8px 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-success {
+            background-color: var(--secondary-color);
+        }
+
+        .badge-warning {
+            background-color: #f39c12;
+        }
+
+        .badge-danger {
+            background-color: #e74c3c;
+        }
+
+        /* Buttons */
+        .btn-primary, .btn-success {
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover, .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        /* Empty State */
+        .alert-warning {
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+            color: #856404;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+            
+            .table {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">StudSeek</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:User_home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:user_booking_records' %}">My Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2 class="text-center mb-4">
+            <i class="fas fa-clipboard-list mr-2"></i>My Booking Records
+        </h2>
+
+        {% if bookings %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Room</th>
+                        <th>Address</th>
+                        <th>Capacity</th>
+                        <th>Amount</th>
+                        <th>Booking Date</th>
+                        <th>Check-in Date</th>
+                        <th>Status</th>
+                        <th>Approval</th>
+                        <th>Special Requests</th>
+                        <th>Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.room.hostel.name }}</td>
+                        <td>{{ booking.room.hostel.address }}</td>
+                        <td>{{ booking.capacity }}</td>
+                        <td>${{ booking.amount }}</td>
+                        <td>{{ booking.booking_date }}</td>
+                        <td>{{ booking.check_in_date|default:"N/A" }}</td>
+                        <td>
+                            <span class="badge 
+                                {% if booking.booking_status == 'Confirmed' %}badge-success
+                                {% elif booking.booking_status == 'Pending' %}badge-warning
+                                {% else %}badge-danger
+                                {% endif %}">
+                                {{ booking.booking_status }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge 
+                                {% if booking.rental_service_approval_status %}badge-success
+                                {% else %}badge-danger
+                                {% endif %}">
+                                {{ booking.rental_service_approval_status|yesno:"Approved,Not Approved" }}
+                            </span>
+                        </td>
+                        <td>{{ booking.special_requests|default:"None" }}</td>
+                        <td>
+                            {% if booking.rental_service_approval_status and not booking.payment %}
+                            <a href="{% url 'User:payment' booking.id %}" class="btn btn-success btn-sm">
+                                <i class="fas fa-credit-card mr-1"></i>Pay Now
+                            </a>
+                            {% elif booking.payment %}
+                             <p>Paid</p>
+                            {% else %}
+                            <p>Payment not available</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="alert alert-warning text-center">No booking records found.</p>
+        {% endif %}
+
+        <a href="{% url 'User:User_home' %}" class="btn btn-primary mt-3">Back to Home</a>
+    </div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 StudSeek. All Rights Reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

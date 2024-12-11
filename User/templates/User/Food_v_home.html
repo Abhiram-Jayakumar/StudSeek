@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Bites - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary-color: #dc3545;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --gradient-primary: linear-gradient(135deg, #ff6b6b 0%, #dc3545 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: white !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--primary-color) !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            height: 70vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.postimg.cc/y87ndd55/photo-1700625914525-54dba25d2125.avif');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            padding: 0 15px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .hero .btn {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .hero .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Menu Section */
+        .menu-section {
+            background: white;
+            padding: 50px 0;
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .feature-card img {
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .feature-card .card-body {
+            padding: 20px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--secondary-color);
+            padding: 50px 0;
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        footer a {
+            color: white;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .feature-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'User:Food_v_home'%}">
+            <i class="fas fa-utensils"></i> Food Vendor
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:view_food_vendor_profile'%}">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:register_food_vendor'%}">
+                        <i class="fas fa-plus-circle"></i> Add Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index'%}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>FOOD VENDOR</h1>
+            <p class="lead">Experience Culinary Delights Like Never Before!</p>
+            <a href="#menu" class="btn btn-danger btn-lg">View Menu</a>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="container mt-5" id="about">
+        <h2 class="text-center mb-4">About Us</h2>
+        <p class="text-center">At Delicious Bites, we are passionate about food. Our mission is to provide delicious, high-quality meals made with the freshest ingredients. Whether you're looking for a quick lunch or a gourmet dinner, we've got you covered!</p>
+    </div>
+
+    <!-- Menu Section -->
+    <div class="container menu-section mt-5" id="menu">
+        <h2 class="text-center mb-4">Our Menu</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card">
+                    <img src="https://i.postimg.cc/y87ndd55/photo-1700625914525-54dba25d2125.avif" class="card-img-top" alt="Pasta">
+                    <div class="card-body">
+                        <h5 class="card-title">Creamy Pasta</h5>
+                        <p class="card-text">Delicious pasta in a creamy sauce, topped with fresh herbs. A must-try!</p>
+                        <p class="font-weight-bold">$12.99</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card">
+                    <img src="https://i.postimg.cc/Gp2QFfbx/photo-1680342630889-b475e612a058.avif" class="card-img-top" alt="Burger">
+                    <div class="card-body">
+                        <h5 class="card-title">Juicy Burger</h5>
+                        <p class="card-text">A mouth-watering burger with a juicy patty, fresh lettuce, and our special sauce.</p>
+                        <p class="font-weight-bold">$10.99</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card">
+                    <img src="https://i.postimg.cc/634fSG27/premium-photo-1666662656884-1ae73bd2c1cd.avif" class="card-img-top" alt="Salad">
+                    <div class="card-body">
+                        <h5 class="card-title">Fresh Salad</h5>
+                        <p class="card-text">A vibrant mix of fresh vegetables, drizzled with our homemade dressing.</p>
+                        <p class="font-weight-bold">$8.99</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="container contact-section mt-5" id="contact">
+        <h2 class="text-center mb-4">Contact Us</h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea class="form-control" id="message" rows="3" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger">Send Message</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Delicious Bites. All rights reserved.</p>
+        <p>Follow us on social media: 
+            <a href="#" class="text-white">Facebook</a> | 
+            <a href="#" class="text-white">Instagram</a> | 
+            <a href="#" class="text-white">Twitter</a>
+        </p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

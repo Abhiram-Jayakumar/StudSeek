@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudSeek - Student Assistance Platform</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: var(--gradient-primary) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        /* Carousel Styling */
+        .carousel {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .carousel-caption {
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+
+        /* Features Section */
+        .feature-card {
+            background: var(--card-bg);
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .feature-card img {
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .feature-card .card-body {
+            padding: 20px;
+        }
+
+        /* Footer Styling */
+        footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #f1f2f6;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .carousel-item img {
+                height: 300px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">StudSeek</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:user_reg' %}">User  Registration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:register_provider' %}">Register Provider</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:login' %}">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Carousel -->
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://i.postimg.cc/Xv12Xhjv/photo-1414235077428-338989a2e8c0.avif"  alt="Student Accommodation" style="height: 600px; width:100%">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Find the Best Hostels Near You</h5>
+                    <p>Quick and easy accommodation solutions for new students.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.postimg.cc/cHss4vJW/photo-1555854877-bab0e564b8d5.avif"  alt="Mess Services" style="height: 600px; width:100%">
+                <div class ="carousel-caption d-none d-md-block">
+                    <h5>Top-Quality Mess Services</h5>
+                    <p>Find affordable and reliable meal providers in town.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.postimg.cc/tJ8QPJ9Y/photo-1579985081815-efd0d0729c23.avif"  alt="Bus Routes" style="height: 600px; width:100%">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Explore Convenient Bus Services</h5>
+                    <p>Plan your route and travel with ease in your new city.</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Our Key Features</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card shadow-sm">
+                    <img src="https://i.postimg.cc/gkR8Z7D0/all-nations-backpackers-hotel-melbourne-img-27.jpg" style="height: 229px;" class="card-img-top" alt="Hostel">
+                    <div class="card-body">
+                        <h5 class="card-title">Nearby Hostels</h5>
+                        <p class="card-text">Discover the best and most affordable hostels close to your new university or city center.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card shadow-sm">
+                    <img src="https://i.postimg.cc/sDtGfJCR/mess-service.jpg" class="card-img-top" alt="Mess">
+                    <div class="card-body">
+                        <h5 class="card-title">Mess Services</h5>
+                        <p class="card-text">Find top-rated mess services that offer tasty and hygienic meals at reasonable prices.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card shadow-sm">
+                    <img src="https://i.postimg.cc/5Nj820H8/photo-1547886597-7e87e5288619.avif" class="card-img-top" alt="Bus">
+                    <div class="card-body">
+                        <h5 class="card-title">Bus Routes</h5>
+                        <p class="card-text">Plan your daily commute with up-to-date bus routes and services for hassle-free travel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 StudSeek. All rights reserved. | Designed for students by students</p>
+        <p>Contact us: info@studseek.com | Follow us on social media: 
+            <a href="#" class="ml-2">Facebook</a> | 
+            <a href="#">Twitter</a> | 
+            <a href="#">Instagram</a>
+        </p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

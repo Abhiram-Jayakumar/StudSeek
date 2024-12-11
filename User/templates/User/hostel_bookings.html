@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Booking Records</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: var(--gradient-primary) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        /* Booking Records Container */
+        .booking-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .page-header h2 {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .page-header i {
+            margin-right: 15px;
+        }
+
+        /* Table Styling */
+        .table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .table thead {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .table thead th {
+            border: none;
+            color: white;
+            font-weight: 600;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        /* Status Badges */
+        .badge-custom {
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-approved {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .badge-pending {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .badge-not-paid {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        /* Action Buttons */
+        .btn-action {
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-action i {
+            margin-right: 5px;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-building mr-2"></i>Hostel Dashboard
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:Hostel_home' %}">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:register_hostel_profile' %}">
+                        <i class="fas fa-plus-circle"></i> Register Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:add_room' %}">
+                        <i class="fas fa-door-open"></i> Add Room
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:view_bookings_for_hostel' %}">
+                        <i class="fas fa-book"></i> View Bookings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="booking-container">
+        <div class="page-header">
+            <h2 align="center"><i class="fas fa-book"></i> Bookings</h2>
+        </div>
+        {% if bookings %}
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Room Number</th>
+                            <th>Booked By</th>
+                            <th>Capacity</th>
+                            <th>Amount</th>
+                            <th>Check-in Date</th>
+                            <th>Booking Status</th>
+                            <th>Actions</th>
+                            <th>Payment Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.room.room_number }}</td>
+                            <td>{{ booking.user.name }}</td>  
+                            <td>{{ booking.capacity }}</td>
+                            <td>${{ booking.amount }}</td>
+                            <td>{{ booking.check_in_date|date:"Y-m-d H:i" }}</td>
+                            <td>
+                                {% if not booking.rental_service_approval_status %}
+                                    <span class="badge badge-pending">Pending</span>
+                                {% else %}
+                                    <span class="badge badge-approved">Approved</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if not booking.rental_service_approval_status %}
+                                    <form method="post" action="">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                                        <button type="submit" class="btn btn-success btn-action">
+                                            <i class="fas fa-check"></i> Approve
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <span class="badge badge-approved">Approved</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if not booking.payment %}
+                                    <span class="badge badge-not-paid">Not Paid</span>
+                                {% else %}
+                                    <span class="badge badge-approved">Paid</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>No bookings found for your hostel.</p>
+            </div>
+        {% endif %}
+    </div>
+    <br><br><br><br><br><br><br><br><br>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 StudSeek. All Rights Reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

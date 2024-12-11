@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Provider</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 15px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        footer a {
+            color: #ffffff;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">StudSeek</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:user_reg' %}">User Registration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:login' %}">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Form Container -->
+    <div class="form-container">
+        <h2>Register Provider</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="district">District:</label>
+                <select id="district" name="district" class="form-control" required>
+                    <option value="">--Select District--</option>
+                    {% for district in districts %}
+                    <option value="{{ district.id }}">{{ district.District_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="place">Place:</label>
+                <select id="place" name="place" class="form-control">
+                    <option value="">--Select Place--</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role" name="role" class="form-control" required>
+                    {% for code, name in roles %}
+                    <option value="{{ code }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number:</label>
+                <input type="text" id="phone_number" name="phone_number" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 StudSeek. All rights reserved.</p>
+        <p>Contact us: info@studseek.com | Follow us on: 
+            <a href="#">Facebook</a> | 
+            <a href="#">Twitter</a> | 
+            <a href="#">Instagram</a>
+        </p>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            $('#district').change(function () {
+                var districtId = $(this).val();
+                $('#place').empty();
+                $('#place').append('<option value="">--Select Place--</option>');
+                if (districtId) {
+                    $.ajax({
+                        url: '/User/get-places/' + districtId + '/',
+                        method: 'GET',
+                        success: function (data) {
+                            if (data.length > 0) {
+                                $.each(data, function (index, place) {
+                                    $('#place').append('<option value="' + place.id + '">' + place.Place_name + '</option>');
+                                });
+                            } else {
+                                $('#place').append('<option value="">No places available</option>');
+                            }
+                        },
+                        error: function () {
+                            console.error("Failed to fetch places.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
