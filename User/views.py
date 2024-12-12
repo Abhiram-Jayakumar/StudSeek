@@ -170,51 +170,50 @@ def get_places_by_district(request, district_id):
 
 def register_food_vendor(request):
     if 'provider_id' not in request.session:
-        messages.error(request, "You need to log in as a provider to register a hostel.")
+        messages.error(request, "You need to log in as a provider to register a food vendor.")
         return redirect('User:login') 
 
     if request.method == 'POST':
-        name = request.POST.get('name')
-        district_id = request.POST.get('district')
-        place_id = request.POST.get('place')
-        address = request.POST.get('address')
-        email = request.POST.get('email')
-        phone_number = request.POST.get('phone_number')
-        website = request.POST.get('website')
-        loc = request.POST.get('loc')
-        registered_by_id = request.session.get('provider_id')
+        try:
+            name = request.POST.get('name')
+            district_id = request.POST.get('district')
+            place_id = request.POST.get('place')
+            address = request.POST.get('address')
+            email = request.POST.get('email')
+            phone_number = request.POST.get('phone_number')
+            website = request.POST.get('website')
+            loc = request.POST.get('loc')
+            registered_by_id = request.session.get('provider_id')
 
+            district = District.objects.get(id=district_id)
+            place = Place.objects.get(id=place_id)
+            registered_by = Providers.objects.get(id=registered_by_id) if registered_by_id else None
 
-        district = District.objects.get(id=district_id)
-        place = Place.objects.get(id=place_id)
-        registered_by = Providers.objects.get(id=registered_by_id) if registered_by_id else None
+            if name and email:
+                FoodVendor.objects.create(
+                    name=name,
+                    district=district,
+                    place=place,
+                    address=address,
+                    email=email,
+                    phone_number=phone_number,
+                    website=website,
+                    loc=loc,
+                    registered_by=registered_by
+                )
+                messages.success(request, "Food Vendor registered successfully.")
+                return redirect('User:Food_v_home')  
 
-
-        if name and email:
-            FoodVendor.objects.create(
-                name=name,
-                district=district,
-                place=place,
-                address=address,
-                email=email,
-                phone_number=phone_number,
-                website=website,
-                loc=loc,
-                registered_by=registered_by
-
-
-            )
-            messages.success(request, "Food Vendor registered successfully.")
-            return redirect('User:index')  
+        except District.DoesNotExist:
+            messages.error(request, "Invalid district selected.")
+        except Place.DoesNotExist:
+            messages.error(request, "Invalid place selected.")
+        except Providers.DoesNotExist:
+            messages.error(request, "Invalid provider. Please log in again.")
 
     districts = District.objects.all()
     registered_by_id = request.session.get('provider_id')
-
     return render(request, 'User/register_food_vendor.html', {'districts': districts, 'registered_by_id': registered_by_id})
-
-def get_places_by_district(request, district_id):
-    places = Place.objects.filter(District_id=district_id).values('id', 'Place_name')
-    return JsonResponse(list(places), safe=False)
 
 
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////

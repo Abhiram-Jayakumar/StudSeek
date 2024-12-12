@@ -146,10 +146,9 @@
                 $('#place').append('<option value="">--Select Place--</option>');
                 if (districtId) {
                     $.ajax({
-                        url: '/User /get-places/' + districtId + '/',
+                        url: '/User/get-places/' + districtId + '/',
                         method: 'GET',
                         success: function (data) {
-                            console.log("Places fetched: ", data);
                             if (data.length > 0) {
                                 $.each(data, function (index, place) {
                                     $('#place').append('<option value="' + place.id + '">' + place.Place_name + '</option>');
